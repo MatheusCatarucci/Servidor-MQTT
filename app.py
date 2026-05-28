@@ -12,7 +12,7 @@ templates = Jinja2Templates(directory="templates")
 
 
 # ──────────────────────────────────────────
-# HOME / CADASTRO
+# HOME
 # ──────────────────────────────────────────
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):
