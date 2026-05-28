@@ -1,26 +1,44 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="pt-BR">
 
-{% block content %}
+<head>
+    <meta charset="UTF-8" />
+    <title>Servidor - MQTT</title>
+    <link rel="stylesheet" href="/static/style.css" />
+</head>
 
-<h2>Estado do dispositivo</h2>
-<p>Estado atual: <strong>{{ device_state }}</strong></p>
+<body>
 
-<h2>Controle</h2>
+    <header>
+        <h1>Servidor - MQTT</h1>
+    </header>
 
-<form method="POST" action="/cmd">
-    <input type="hidden" name="command" value="ON" />
-    <button type="submit">Ligar</button>
-</form>
+    <main>
+        <h2>Estado do dispositivo</h2>
+        <p>Estado atual: <strong>{{ device_state }}</strong></p>
 
-<form method="POST" action="/cmd">
-    <input type="hidden" name="command" value="OFF" />
-    <button type="submit">Desligar</button>
-</form>
+        <h2>Controle</h2>
+        <form method="POST" action="/cmd" style="display: inline-block;">
+            <input type="hidden" name="command" value="ON" />
+            <button type="submit">Ligar</button>
+        </form>
 
-<h2>Informações do broker</h2>
-<p>IP: {{ broker_ip }}</p>
-<p>Porta: 1883</p>
-<p>Tópico de comando: senai/grupo1/dispositivo/cmd</p>
-<p>Tópico de status: senai/grupo1/dispositivo/status</p>
+        <form method="POST" action="/cmd" style="display: inline-block;">
+            <input type="hidden" name="command" value="OFF" />
+            <button type="submit">Desligar</button>
+        </form>
 
-{% endblock %}
+        <h2>Informações do broker</h2>
+        <p>IP: {{ broker_ip }}</p>
+        <p>Porta: 1883</p>
+        <p>Tópico de comando: senai/grupo1/dispositivo/cmd</p>
+        <p>Tópico de status: senai/grupo1/dispositivo/status</p>
+    </main>
+
+    <footer>
+        <p>Servidor - MQTT</p>
+    </footer>
+
+</body>
+
+</html>
