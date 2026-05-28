@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <title>Servidor - MQTT</title>
-    <link rel="stylesheet" href="/static/style.css" />
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 
 <body>
@@ -20,12 +20,12 @@
         <h2>Controle</h2>
         <form method="POST" action="/cmd" style="display: inline-block;">
             <input type="hidden" name="command" value="ON" />
-            <button type="submit">Ligar</button>
+            <button class="ligar" type="submit">Ligar</button>
         </form>
 
         <form method="POST" action="/cmd" style="display: inline-block;">
             <input type="hidden" name="command" value="OFF" />
-            <button type="submit">Desligar</button>
+            <button class="desligar" type="submit">Desligar</button>
         </form>
 
         <h2>Informações do broker</h2>
@@ -34,10 +34,6 @@
         <p>Tópico de comando: senai/grupo1/dispositivo/cmd</p>
         <p>Tópico de status: senai/grupo1/dispositivo/status</p>
     </main>
-
-    <footer>
-        <p>Servidor - MQTT</p>
-    </footer>
 
 </body>
 

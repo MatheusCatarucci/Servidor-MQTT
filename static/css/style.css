@@ -1,24 +1,86 @@
-body {
-  font-family: Arial, sans-serif;
-  padding: 20px;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
+
+body {
+    font-family: Arial, sans-serif;
+    background: #3A4454; 
+    color: #f1f5f9;
+    min-height: 100vh;
+    display: flex;
+    
+    flex-direction: column;
+    text-align: center; 
+}
+
 
 header {
-  background-color: #333;
-  color: white;
-  padding: 10px;
-  margin-bottom: 20px;
+    background: #121212;
+    padding: 25px;
 }
+
+header h1 {
+    font-size: 32px;
+    color: #38bdf8;
+}
+
+
+main {  
+    width: 90%;
+    max-width: 700px;
+    margin: 40px auto;
+    background: #555;
+    padding: 30px;
+    border-radius: 16px;
+    text-align: center;
+    margin: 80px auto;
+}
+
+h2 {
+    margin-top: 25px;
+    margin-bottom: 15px;
+    color: #38bdf8;
+}
+
+
+p {
+    margin-bottom: 12px;
+    font-size: 16px;
+}
+
+
+strong {
+    color: #22c55e;
+}
+
 
 button {
-  padding: 10px 20px;
-  margin: 5px;
-  font-size: 16px;
-  cursor: pointer;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 15px; 
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
 }
 
-footer {
-  margin-top: 40px;
-  color: gray;
-  font-size: 12px;
+form {
+    display: inline-block;
+    margin: 0 10px;
 }
+
+.ligar {
+    background: #22c55e;
+    color: white;
+}
+
+.desligar {
+    background: #ef4444;
+    color: white;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
