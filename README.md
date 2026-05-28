@@ -48,10 +48,76 @@
 
 ### Frente 1 — Subir o Broker (Gustavo)
 
-1. Abrir o WSL
-2. Iniciar o Mosquitto com o `mosquitto.conf` configurado
-3. Anotar o IP da máquina e repassar para a Frente 2
-4. Confirmar que a porta `1883` está acessível na rede
+- Etapa 1 - Instalação do wsl
+    - Abra o PowerShell.
+    - Vamos instalar o WSL com Ubuntu.
+    - Instale o WSL `wsl --install`.
+    - Após isso escolha a distribuição do Ubuntu `wsl —install -d Ubuntu`.
+    - Coloque o nome do usuário e sua senha (não aparecera a senha enquanto escreve).
+    - `sudo apt update && sudo apt upgrade -y` atualize o sistema.
+    - Confirme se realmente é a distribuição escolhida `lsb_release -a`.
+
+- Etapa 2 - Instalação do mosquitto
+    - No PowerShell
+    - Instalação do mosquitto `sudo apt install mosquitto mosquitto-clients`.
+    - `mosquitto` - É o broker MQTT, ou seja, responsável por receber e distribuir mensagens entre dispositivos.
+
+- Etapa 3 - Conexão remota
+    - Para isso definimos dois terminais (Terminal 1 e Terminal 2).
+    - Terminal 1 - `mosquitto_sub -h localhost -t teste`.
+        - `mosquitto_sub` - para ver o que o 'Terminal 2' vai mandar.
+        - `-h localhost` - aqui defini de onde a mensagem vai vir (neste caso localmente do 'Terminal 2').
+        - `-t teste` - aqui define o nome do topico (neste caso 'teste').
+
+    - Terminal 2 - `mosquitto_pub -h localhost -t teste -m "conexão_funcionando"`.
+        - `mosquitto_pub` - para enviar a mensagem que ira enviar para o 'Terminal 1'.
+        - `-h localhost` - aqui defini de onde a mensagem vai ir (neste caso localmente para o 'Terminal 1').
+        - `-t teste` - aqui define o nome do topico (neste caso 'teste').
+        - `-m "conexão_funcionando"` - aqui será a mensagem que vai ser enviada.
+    
+    - No Terminal 1.
+    - É para aparecer - "conexão_funcionando".
+
+- Etapa 4 - Conexão entre dois equipamento com validação.
+    - Aqui ao inves de ser Terminal 1 e Terminal 2, será Note 1 e Note 2.
+    - Antes de tudo, tire o firewall do Note que vai enviar a mensagem.
+        - Abra o cmd como administrador.
+        - `hostname -I` - pegue o seu IP.
+        - `netsh interface portproxy add v4tov4 listenport=1883 listenaddress=0.0.0.0 connectport=1883 connectaddress=IP_do_computador`, depois disso `connectaddress=` adicione o IP que você pegou no primeiro comando.
+        - Após isso execute, `netsh advfirewall firewall add rule name="MQTT" dir=in action=allow protocol=TCP localport=1883`.
+        - Depois disso é para aparecer 'OK'.
+        ![](assets/firewall_note.png)
+    
+    - Note 1
+        - Esse é o que vai receber as mensagens, e vai decidir nome e senha.
+        - Vamos iniciar o mosquitto.
+        - `sudo service mosquitto start`
+        - `sudo service mosquitto status` - para ver se está ligado.
+        - Criar senha ao broker - `sudo mosquitto_passwd -c /etc/mosquitto/passwd gp3`.
+        - Troque gp3 pelo nome que você deseja.
+        ![](assets/senha_mosquitto.png)
+        - Agora precisamos dizer ao Mosquitto para parar de aceitar conexões anônimas e passar a ler o arquivo que acabamos de criar.
+        - Entre no nano - `sudo nano /etc/mosquitto/mosquitto.conf`.
+        - Modifique o arquivo para que ele fique exatamente assim (mude o `allow_anonymous` para `false` e adicione a linha do `password_file`)
+        ![](assets/nano_.png)
+        - Salve e saia (Ctrl + O, Enter, Ctrl + X).
+        - Agora envie a mensagem.
+        - `mosquitto_sub -h 192.168.0.113 -t "esp_led" -u gp3 -P 321 -v"`
+        - `-h 192.168.0.113` - define o IP do broker MQTT.
+        - `-t "esp_led"` - define o tópico utilizado.
+        - `-u gp3` - define o usuário MQTT.
+        - `-P 321 -v` - define a senha MQTT e exibe tópico + mensagem recebida.
+
+    - Note 2
+        - No PowerShell
+        - `mosquitto_pub -h 192.168.0.113 -t “esp_led” -m "funcionou" -u gp3 -P 321`
+        - Resultado:
+        ![](assets/dois_notes.png)
+
+### Frente 1 Finalizada!
+
+
+
 
 ### Frente 2 — Subir o Sistema Web (Matheus)
 
