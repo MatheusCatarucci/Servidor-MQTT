@@ -1,24 +1,17 @@
-import paho.mqtt.client as mqtt
+import paho.mqtt.publish as publish
 
-BROKER_IP = "0.0.0.0"
-BROKER_PORT = 1883
-TOPIC_STATUS = "senai/grupo1/dispositivo/status"
+MQTT_HOST = "192.168.0.113"
+MQTT_AUTH = {
+    "username": "gp3",
+    "password": "321"
+}
 
-estado = {"dispositivo": "off"}
+TOPICO = "esp_led"
 
-
-def on_message(client, userdata, message):
-    payload = message.payload.decode("utf-8")
-    estado["dispositivo"] = payload
-
-
-def obter_status() -> dict:
-    return {"status": estado["dispositivo"]}
-
-
-def iniciar():
-    client = mqtt.Client()
-    client.on_message = on_message
-    client.connect(BROKER_IP, BROKER_PORT)
-    client.subscribe(TOPIC_STATUS)
-    client.loop_start()
+def enviar_mensagem(mensagem: str):
+    publish.single(
+        topic=TOPICO,
+        payload=mensagem,
+        hostname=MQTT_HOST,
+        auth=MQTT_AUTH
+    )

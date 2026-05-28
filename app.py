@@ -1,25 +1,33 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Form, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
-from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from server import *
+from fastapi.staticfiles import StaticFiles
+
+from server import enviar_mensagem
 
 app = FastAPI()
-iniciar()
 
-app.mount('/static', StaticFiles(directory='static'), name='static')
-templates = Jinja2Templates(directory='templates')
+templates = Jinja2Templates(directory="templates")
 
-#-----------------------------------------------------
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
-@app.get('/status')
-def get_status():
-    return obter_status()
 
-@app.get('/', response_class=HTMLResponse)
-def home(request: Request):    
-    return templates.TemplateResponse(
-        request=request,
-        name='home.html',
-        context=estado
-    )
+@app.get("/", response_class=HTMLResponse)
+async def pagina_inicial(request: Request):
+
+    return templates.TemplateResponse(request=request, name="index.html")
+
+
+@app.post("/transmitir")
+async def transmitir_morse(palavra: str = Form(...)):
+
+    texto = palavra.strip().upper()
+
+    try:
+        enviar_mensagem(texto)
+        print(f"Mensagem enviada: {texto}")
+
+    except Exception as erro:
+        print(f"Erro MQTT: {erro}")
+
+    return RedirectResponse(url="/", status_code=303)
