@@ -2,6 +2,7 @@ from fastapi import FastAPI, Form, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+import uvicorn
 
 from server import enviar_mensagem
 
@@ -33,7 +34,4 @@ async def transmitir_morse(palavra: str = Form(...)):
 
 # Bloco padrão para execução direta do script
 if __name__ == "__main__":
-    import uvicorn
-    
-    # Executa o servidor localmente na porta 8000
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=True)
