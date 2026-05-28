@@ -14,13 +14,11 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/", response_class=HTMLResponse)
 async def pagina_inicial(request: Request):
-
     return templates.TemplateResponse(request=request, name="index.html")
 
 
 @app.post("/transmitir")
 async def transmitir_morse(palavra: str = Form(...)):
-
     texto = palavra.strip().upper()
 
     try:
@@ -31,3 +29,11 @@ async def transmitir_morse(palavra: str = Form(...)):
         print(f"Erro MQTT: {erro}")
 
     return RedirectResponse(url="/", status_code=303)
+
+
+# Bloco padrão para execução direta do script
+if __name__ == "__main__":
+    import uvicorn
+    
+    # Executa o servidor localmente na porta 8000
+    uvicorn.run(app, host="0.0.0.0", port=8000)
