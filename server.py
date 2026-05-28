@@ -1,35 +1,24 @@
 import paho.mqtt.client as mqtt
-import threading
 
-BROKER_IP   = "0.0.0.0"    # <- IP do broker (Gustavo)
+BROKER_IP = "0.0.0.0"
 BROKER_PORT = 1883
-
 TOPIC_STATUS = "senai/grupo1/dispositivo/status"
-TOPIC_CMD    = "senai/grupo1/dispositivo/cmd"
 
-# Estado compartilhado com o app.py
-estado = {"dispositivo": "OFF"}
+estado = {"dispositivo": "off"}
 
-# ───────────────────────────────────────────
-def on_connect(client, userdata, flags, rc):
-    print(f"[MQTT] Conectado ao broker. Código: {rc}")
-    client.subscribe(TOPIC_STATUS)
 
-def on_message(client, userdata, msg):
-    valor = msg.payload.decode()
-    estado["dispositivo"] = valor
-    print(f"[MQTT] Status recebido: {valor}")
+def on_message(client, userdata, message):
+    payload = message.payload.decode("utf-8")
+    estado["dispositivo"] = payload
 
-# ───────────────────────────────────────────
-client = mqtt.Client()
-client.on_connect = on_connect
-client.on_message = on_message
+
+def obter_status() -> dict:
+    return {"status": estado["dispositivo"]}
+
 
 def iniciar():
+    client = mqtt.Client()
+    client.on_message = on_message
     client.connect(BROKER_IP, BROKER_PORT)
-    thread = threading.Thread(target=client.loop_forever, daemon=True)
-    thread.start()
-
-def publicar(comando: str):
-    client.publish(TOPIC_CMD, comando)
-    print(f"[MQTT] Comando enviado: {comando}")
+    client.subscribe(TOPIC_STATUS)
+    client.loop_start()
