@@ -44,6 +44,36 @@
 
 ---
 
+## 🚀 Como Rodar o Projeto
+
+### Frente 1 — Subir o Broker (Gustavo)
+
+1. Abrir o WSL
+2. Iniciar o Mosquitto com o `mosquitto.conf` configurado
+3. Anotar o IP da máquina e repassar para a Frente 2
+4. Confirmar que a porta `1883` está acessível na rede
+
+### Frente 2 — Subir o Sistema Web (Matheus)
+
+1. Abrir o terminal na pasta `web/`
+2. Criar e ativar o ambiente virtual:
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+3. Instalar as dependências:
+```bash
+pip install -r requirements.txt
+```
+4. Colocar o IP do broker no `server.py`
+5. Subir a aplicação:
+```bash
+uvicorn app:app --reload
+```
+6. Acessar `http://localhost:8000` no navegador
+
+---
+
 ## 📋 Checklist
 
 ### 🔵 Frente 1
