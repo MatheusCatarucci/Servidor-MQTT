@@ -18,12 +18,12 @@
         <p>Estado atual: <strong>{{ device_state }}</strong></p>
 
         <h2>Controle</h2>
-        <form method="POST" action="/cmd" style="display: inline-block;">
+        <form method="POST" action="/cmd">
             <input type="hidden" name="command" value="ON" />
             <button type="submit">Ligar</button>
         </form>
 
-        <form method="POST" action="/cmd" style="display: inline-block;">
+        <form method="POST" action="/cmd">
             <input type="hidden" name="command" value="OFF" />
             <button type="submit">Desligar</button>
         </form>
