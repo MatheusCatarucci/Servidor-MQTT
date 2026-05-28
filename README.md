@@ -59,7 +59,7 @@
 2. Criar e ativar o ambiente virtual:
 ```bash
 python -m venv venv
-venv\Scripts\activate
+venv\Scripts\Activate.ps1
 ```
 3. Instalar as dependências:
 ```bash
