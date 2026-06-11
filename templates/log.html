@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log MQTT</title>
+    <link rel="stylesheet" href="/static/css/log.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <h1>LOG MORSE</h1>
+
+            <div class="status">
+                <span class="dot"></span>
+                MQTT ONLINE
+            </div>
+        </div>
+
+        <div class="table-container">
+
+            <div class="table-header">
+                <span>ID</span>
+                <span>PALAVRA</span>
+                <span>HORÁRIO</span>
+            </div>
+
+            {% for item in logs %}
+            <div class="table-row">
+                <span>{{ loop.index }}</span>
+                <span>{{ item.palavra }}</span>
+                <span>{{ item.horario }}</span>
+            </div>
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -3,6 +3,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 import uvicorn
+import time
 
 from server import enviar_mensagem
 
@@ -12,10 +13,31 @@ templates = Jinja2Templates(directory="templates")
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
+log = [
+    {"palavra": "SOS", "horario": "08:00"},
+    {"palavra": "HELLO", "horario": "08:01"},
+    {"palavra": "WORLD", "horario": "08:02"}
+]
+
+
+def registrar_log(palavra, horario):
+    log.append({
+        "palavra": palavra,
+        "horario": horario
+    })
+
+
+def registrar_horario():
+    horario_msg = time.localtime()
+    return time.strftime("%H:%M:%S", horario_msg)
+
 
 @app.get("/", response_class=HTMLResponse)
 async def pagina_inicial(request: Request):
-    return templates.TemplateResponse(request=request, name="index.html")
+    return templates.TemplateResponse(
+        request=request,
+        name="index.html"
+    )
 
 
 @app.post("/transmitir")
@@ -24,6 +46,12 @@ async def transmitir_morse(palavra: str = Form(...)):
 
     try:
         enviar_mensagem(texto)
+
+        registrar_log(
+            palavra=texto,
+            horario=registrar_horario()
+        )
+
         print(f"Mensagem enviada: {texto}")
 
     except Exception as erro:
@@ -32,6 +60,24 @@ async def transmitir_morse(palavra: str = Form(...)):
     return RedirectResponse(url="/", status_code=303)
 
 
-# Bloco padrão para execução direta do script
+@app.get("/log", response_class=HTMLResponse)
+async def registro(request: Request):
+    try:
+        return templates.TemplateResponse(
+            request=request,
+            name="log.html",
+            context={"logs": log}
+        )
+
+    except Exception as erro:
+        print(f"Erro ao renderizar log.html: {erro}")
+        return RedirectResponse(url="/", status_code=302)
+
+
 if __name__ == "__main__":
-    uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run(
+        "app:app",
+        host="0.0.0.0",
+        port=8000,
+        reload=True
+    )

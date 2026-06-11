@@ -1,6 +1,6 @@
 import paho.mqtt.publish as publish
 
-MQTT_HOST = "192.168.0.113"
+MQTT_HOST = "192.168.0.114"
 MQTT_AUTH = {
     "username": "gp3",
     "password": "321"
