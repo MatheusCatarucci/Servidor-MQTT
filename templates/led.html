@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LED MQTT</title>
+    <link rel="stylesheet" href="/static/css/led.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>CONTROLE LED</h1>
+        <p>ESP32 • MQTT</p>
+
+        <div class="buttons">
+            <form action="/ascender" method="post">
+                <button class="btn-on" type="submit">
+                    ACENDER
+                </button>
+            </form>
+
+            <form action="/apagar" method="post">
+                <button class="btn-off" type="submit">
+                    APAGAR
+                </button>
+            </form>
+        </div>
+        <div class="links">
+            <a href="/log">LOG</a>
+            <a href="/">MORSE</a>
+        </div>
+    </div>
+
+</body>
+
+</html>

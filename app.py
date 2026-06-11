@@ -5,7 +5,7 @@ from fastapi.staticfiles import StaticFiles
 import uvicorn
 import time
 
-from server import enviar_mensagem
+from server import *
 
 app = FastAPI()
 
@@ -26,11 +26,19 @@ def registrar_log(palavra, horario):
         "horario": horario
     })
 
-
 def registrar_horario():
     horario_msg = time.localtime()
     return time.strftime("%H:%M:%S", horario_msg)
 
+@app.post("/ascender")
+def ascender():
+    ascender_led()
+    return RedirectResponse("/led", status_code=303)
+
+@app.post("/apagar")
+def apagar():
+    apagar_led()
+    return RedirectResponse("/led", status_code=303)
 
 @app.get("/", response_class=HTMLResponse)
 async def pagina_inicial(request: Request):
@@ -73,6 +81,12 @@ async def registro(request: Request):
         print(f"Erro ao renderizar log.html: {erro}")
         return RedirectResponse(url="/", status_code=302)
 
+@app.get('/led', response_class=HTMLResponse)
+def led(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name='led.html'
+    )
 
 if __name__ == "__main__":
     uvicorn.run(

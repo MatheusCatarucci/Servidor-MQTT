@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/static/css/style.css">
     <title>Morse MQTT</title>
 </head>
+
 <body>
 
     <h2>Transmissor Morse</h2>
@@ -12,7 +14,13 @@
     <form action="/transmitir" method="POST">
         <input type="text" name="palavra" placeholder="Digite aqui" required>
         <button type="submit">Enviar</button>
+        <div class="links">
+            <a href="/log">LOG</a>
+            <a href="/led">ACENDER LED</a>
+        </div>
     </form>
 
+
 </body>
+
 </html>

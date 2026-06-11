@@ -27,14 +27,16 @@ body {
    TÍTULO (Estilo Terminal / Neon)
    ========================================= */
 h2 {
-    font-family: 'Courier New', Courier, monospace; /* Vibe de código/rádio */
+    font-family: 'Courier New', Courier, monospace;
+    /* Vibe de código/rádio */
     font-size: 2.5rem;
     margin-bottom: 2rem;
-    color: #38bdf8; /* Azul neon */
+    color: #38bdf8;
+    /* Azul neon */
     text-transform: uppercase;
     letter-spacing: 5px;
-    text-shadow: 0 0 10px rgba(56, 189, 248, 0.5), 
-                 0 0 20px rgba(56, 189, 248, 0.3);
+    text-shadow: 0 0 10px rgba(56, 189, 248, 0.5),
+        0 0 20px rgba(56, 189, 248, 0.3);
     /* Pequena animação para simular falha de transmissão */
     animation: pulse 3s infinite alternate;
 }
@@ -124,6 +126,79 @@ button:active {
    ANIMAÇÕES KEYFRAMES
    ========================================= */
 @keyframes pulse {
-    0%, 100% { opacity: 1; text-shadow: 0 0 10px rgba(56, 189, 248, 0.5); }
-    50% { opacity: 0.8; text-shadow: 0 0 20px rgba(56, 189, 248, 0.8); }
+
+    0%,
+    100% {
+        opacity: 1;
+        text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+    }
+
+    50% {
+        opacity: 0.8;
+        text-shadow: 0 0 20px rgba(56, 189, 248, 0.8);
+    }
+}
+
+/* =========================================
+   LINKS
+   ========================================= */
+.links {
+    display: flex;
+    gap: 1rem;
+    margin-top: .5rem;
+}
+
+.links a {
+    flex: 1;
+    position: relative;
+
+    text-decoration: none;
+    text-align: center;
+
+    color: #94a3b8;
+    font-size: .9rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+
+    padding: .8rem 1rem;
+
+    border-radius: 10px;
+
+    transition:
+        color .25s ease,
+        transform .25s ease,
+        background .25s ease;
+
+    overflow: hidden;
+}
+
+/* Linha animada */
+.links a::after {
+    content: "";
+
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+
+    width: 0;
+    height: 2px;
+
+    background: #38bdf8;
+
+    transition: all .3s ease;
+    transform: translateX(-50%);
+}
+
+.links a:hover {
+    color: #f8fafc;
+    background: rgba(255,255,255,.03);
+    transform: translateY(-2px);
+}
+
+.links a:hover::after {
+    width: 80%;
+}
+
+.links a:active {
+    transform: translateY(0);
 }

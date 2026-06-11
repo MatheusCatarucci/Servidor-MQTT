@@ -15,3 +15,26 @@ def enviar_mensagem(mensagem: str):
         hostname=MQTT_HOST,
         auth=MQTT_AUTH
     )
+
+def ascender_led():
+    publish.single(
+        TOPICO,
+        "ON",
+        hostname=MQTT_HOST,
+        port=1883,
+        auth=MQTT_AUTH
+    )
+
+    return {"status": "LED Ligado"}
+
+
+def apagar_led():
+    publish.single(
+        TOPICO,
+        "OFF",
+        hostname=MQTT_HOST,
+        port=1883,
+        auth=MQTT_AUTH
+    )
+
+    return {"status": "LED Desligado"}
