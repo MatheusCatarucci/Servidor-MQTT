@@ -8,7 +8,7 @@
 
 | Frente | Integrantes |
 |---|---|
-| 🔵 **Hardware / Infra** | Samuel Gracias, Gustavo Zampirom, Nicolas Luciani |
+| 🔵 **Hardware / Infra** | Samuel Gracias, Gustavo Zampiron, Nicolas Luciani |
 | 🟢 **Sistema Web** | Matheus Catarucci, Gabriel Leonardo, Moises Tafarello |
 
 ---
@@ -17,7 +17,7 @@
 
 | Integrante | Responsabilidade |
 |---|---|
-| **Gustavo Zampirom** | Instalar e configurar o Mosquitto no WSL. Garantir que o broker esteja acessível na rede local e documentar o IP. |
+| **Gustavo Zampiron** | Instalar e configurar o Mosquitto no WSL. Garantir que o broker esteja acessível na rede local e documentar o IP. |
 | **Samuel Gracias** | Desenvolver o firmware C++ da ESP32. Conectar ao broker, assinar o tópico de comando e acionar o dispositivo físico. |
 | **Nicolas Luciani** | Validar a comunicação com testes de pub/sub. Ser o ponto de contato com o outro grupo na Tarefa 4 (trocar IPs e tópicos). |
 
