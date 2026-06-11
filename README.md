@@ -156,19 +156,6 @@ uvicorn app:app --reload
 - [ ] Repositório no GitHub com todos os arquivos
 - [ ] Acionamento remoto do dispositivo do outro grupo funcionando
 - [ ] Prints/evidências adicionados ao README
-
----
-
-## 📸 Evidências
-
-| Etapa | Responsável | Print/Vídeo |
-|---|---|---|
-| Broker rodando no WSL | Gustavo | _(inserir)_ |
-| Pub/sub no terminal | Nicolas | _(inserir)_ |
-| ESP32 acionando dispositivo | Samuel | _(inserir)_ |
-| Interface web funcionando | Gabriel / Moises | _(inserir)_ |
-| Integração entre grupos | Nicolas / Gabriel | _(inserir)_ |
-
 ---
 
 *SENAI — Projeto MQTT Ecossistema*
