@@ -13,11 +13,7 @@ templates = Jinja2Templates(directory="templates")
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-log = [
-    {"palavra": "SOS", "horario": "08:00"},
-    {"palavra": "HELLO", "horario": "08:01"},
-    {"palavra": "WORLD", "horario": "08:02"}
-]
+log = []
 
 
 def registrar_log(palavra, horario):
